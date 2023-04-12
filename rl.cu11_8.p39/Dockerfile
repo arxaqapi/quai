@@ -22,13 +22,13 @@ RUN pip install --upgrade pip
 RUN pip install jax==0.3.17
 RUN pip install jaxlib==0.3.15+cuda11.cudnn82 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
 RUN pip install -r /home/requirements.txt
-# or specify below
+# extra libraries
 RUN pip install evosax "gymnasium[atari, accept-rom-license]" 
 
 RUN chsh -s /usr/bin/fish
 ENV SHELL=/usr/bin/fish
 RUN curl https://raw.githubusercontent.com/arxaqapi/Dotfiles/main/.bash_aliases > /home/.bash_aliases
-RUN printf "\nInitializes .bash_aliases\nsource .bash_aliases\n" >> /etc/fish/config.fish
+RUN echo "source /home/.bash_aliases" >> /etc/fish/config.fish
 
 RUN ln -sf /usr/bin/python3.9 /usr/bin/python3
 RUN ln -sf /usr/bin/python3.9 /usr/bin/python

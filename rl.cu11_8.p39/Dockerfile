@@ -3,7 +3,6 @@ FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 RUN echo 'root:root' | chpasswd
 WORKDIR /home/
 COPY requirements.txt /home/
-COPY jax_gpu_test.py /home/
 
 # tzdata hangs: https://dev.to/grigorkh/fix-tzdata-hangs-during-docker-image-build-4o9m
 ENV TZ=Europe/Berlin

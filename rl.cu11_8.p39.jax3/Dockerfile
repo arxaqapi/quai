@@ -9,20 +9,21 @@ ENV TZ=Europe/Berlin
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt update && apt install --yes --no-install-recommends software-properties-common && add-apt-repository ppa:deadsnakes/ppa && add-apt-repository ppa:fish-shell/release-3
-RUN apt update && apt install --yes --no-install-recommends build-essential ca-certificates fish
+RUN apt update && apt install --yes --no-install-recommends build-essential ca-certificates 
 RUN apt install --yes --no-install-recommends build-essential python3.9 python3.9-distutils python3.9-venv python3.9-dev
-# RUN apt install nvidia-cuda-toolkit  # useless since devel switch
 
-RUN apt install --yes --no-install-recommends neovim git curl tmux
+RUN apt install --yes --no-install-recommends fish neovim git curl tmux
+RUN apt install --yes --no-install-recommends ffmpeg xvfb libglu1-mesa-dev freeglut3-dev mesa-common-dev
 
 RUN curl https://bootstrap.pypa.io/get-pip.py -o /home/get-pip.py
 RUN python3.9 /home/get-pip.py
 RUN pip install --upgrade pip
 RUN pip install jax==0.3.17
 RUN pip install jaxlib==0.3.15+cuda11.cudnn82 -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
-RUN pip install -r /home/requirements.txt
-# extra libraries
-RUN pip install evosax gymnax evojax "gymnasium[atari, accept-rom-license]" scalene
+RUN pip install -r /home/qdax.txt
+RUN pip install --upgrade pip 
+RUN pip install scalene
+RUN pip install evosax gymnax evojax "gymnasium[atari, accept-rom-license]" black ruff jax-smi
 
 RUN chsh -s /usr/bin/fish
 ENV SHELL=/usr/bin/fish
